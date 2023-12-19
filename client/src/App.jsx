@@ -3,7 +3,7 @@ import Board from './Components/Board/Board';
 import './App.css';
 
 const App = () => {
-  const [boardSize, setBoardSize] = useState(6);
+  const [boardSize, setBoardSize] = useState(3);
   const [squares, setSquares] = useState(Array(boardSize * boardSize).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState('X');
   const [winner, setWinner] = useState(null);
@@ -19,11 +19,9 @@ const App = () => {
         return response.json(); // Return the promise
       })
       .then((data) => {
-        console.log(data);
-        const initialBoardSize = data.boardSize || 3; // Adjust the default value as needed
+        const initialBoardSize = data.data.boardSize || 3; // Adjust the default value as needed
         setBoardSize((_prev) => initialBoardSize);
-        console.log(boardSize)
-        setSquares(Array(boardSize * boardSize).fill(null));
+        setSquares(Array(initialBoardSize * initialBoardSize).fill(null));
         console.log(squares)
       })
       .catch((error) => {
@@ -42,6 +40,13 @@ const App = () => {
     });
   };
 
+  const boardStyle = {
+    display: "grid",
+    gridTemplateColumns: `repeat(${boardSize}, 100px)`,
+    gap: "5px",
+    marginTop: "20px",
+  };
+
   return (
     <div className="app">
       <h1>Tic Tac Toe</h1>
@@ -50,7 +55,7 @@ const App = () => {
       ) : (
         <p>Current player: {currentPlayer}</p>
       )}
-      <Board squares={squares} onClick={handleSquareClick} />
+      <Board style={boardStyle} squares={squares} onClick={handleSquareClick} />
     </div>
   );
 };

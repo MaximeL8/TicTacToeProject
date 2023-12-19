@@ -1,4 +1,3 @@
-# server.py
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
@@ -33,7 +32,7 @@ def calculate():
     if request.method == 'GET':
         # Handle GET request for initial data
         # You can include the initial board size in the response
-        return {"data" : ["boardSize: 6"]}  # Adjust the default value as needed
+        return {"data" : {"boardSize" : "5"}}  # Adjust the default value as needed
 
     elif request.method == 'POST':
         # Handle POST request for game calculations

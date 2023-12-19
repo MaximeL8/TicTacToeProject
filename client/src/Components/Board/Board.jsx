@@ -1,10 +1,9 @@
-// Board.js
 import React from 'react';
 import Square from '../Square/Square';
 
-const Board = ({ squares, onClick, disabled }) => {
+const Board = ({ squares, onClick, disabled, style }) => {
   return (
-    <div className="board">
+    <div style={style}>
       {squares.map((square, index) => (
         <Square
           key={index}
