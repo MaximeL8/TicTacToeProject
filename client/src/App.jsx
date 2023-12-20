@@ -8,6 +8,9 @@ const App = () => {
   const [currentPlayer, setCurrentPlayer] = useState('X');
   const [winner, setWinner] = useState(null);
   const [boardDisabled, setBoardDisabled] = useState('');
+  const [isBoardFull, setIsBoardFull] = useState(false)
+  const [isBoardEmpty, setIsBoardEmpty] = useState(true)
+  const [dimValue, setDimValue] = useState(3)
 
   useEffect(() => {
     fetch("http://localhost:5000/params", {
@@ -20,10 +23,7 @@ const App = () => {
         return response.json(); // Return the promise
       })
       .then((data) => {
-        const initialBoardSize = data.data.boardSize || 3; // Adjust the default value as needed
-        setBoardSize((_prev) => initialBoardSize);
-        setSquares(Array(initialBoardSize * initialBoardSize).fill(null));
-        console.log(squares)
+        creationTerrain(data)
       })
       .catch((error) => {
         console.error("Error fetching initial data:", error);
@@ -31,6 +31,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    isBoardEmptyFunc()
     fetch("http://localhost:5000/calculate", {
       method: "POST",
       headers: {
@@ -54,10 +55,14 @@ const App = () => {
       })
       .catch((error) => {
         console.error("Error sending data to server:", error);
-      });
+      });   
+      const isBoardFull = squares.every((square) => square !== null);
+      if (isBoardFull) {
+        setIsBoardFull(true)
+        setBoardDisabled('none')
+      }
   }, [squares]);
-  
-  
+
   const handleSquareClick = (index) => {
     if(squares[index] == null){
       setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
@@ -70,6 +75,29 @@ const App = () => {
     }
   };
 
+  const isBoardEmptyFunc = () => { 
+    squares.forEach(square => {
+      if (square !== null) {
+        setIsBoardEmpty(false)
+      }
+    });
+  }
+
+  const creationTerrain = (data) => {
+    const initialBoardSize = data.data.boardSize || 3; // Adjust the default value as needed
+    setBoardSize((_prev) => initialBoardSize);
+    setSquares(Array(initialBoardSize * initialBoardSize).fill(null));
+    console.log(squares)
+  }
+
+  const creationTerrainDim = (value) => {
+    if(value >= 3){
+      const initialBoardSize = value; // Adjust the default value as needed
+      setBoardSize((_prev) => initialBoardSize);
+      setSquares(Array(initialBoardSize * initialBoardSize).fill(null));
+    }
+  }
+
   const boardStyle = {
     display: "grid",
     gridTemplateColumns: `repeat(${boardSize}, 100px)`,
@@ -81,8 +109,22 @@ const App = () => {
   return (
     <div className="app">
       <h1>Tic Tac Toe</h1>
+      <h2>Dimensions : </h2>
+      <input
+        id="dim"
+        type='number'
+        disabled={!isBoardEmpty}
+        value={dimValue}
+        min={3}
+        onChange={(e) => {
+          setDimValue(e.target.value) 
+          creationTerrainDim(e.target.value)
+        }}
+      />
       {winner ? (
         <p>Player {winner} wins!</p>
+      ) : isBoardFull ? (
+        <p>Equality!</p>
       ) : (
         <p>Current player: {currentPlayer}</p>
       )}
