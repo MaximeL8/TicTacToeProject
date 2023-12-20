@@ -1,8 +1,25 @@
+body {
+    background-color: #191919;
+}
+
 .app {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.app > h1 {
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    width: 500px;
+    text-align: center;
+}
+
+.app > p {
+    color: #fff;
+    font-size: larger;
+    font-weight: bolder;
 }
 
 .square {
@@ -18,5 +35,5 @@
 }
 
 .square:hover {
-    background-color: #e0e0e0;
+    background-color: #bbb3b3;
 }

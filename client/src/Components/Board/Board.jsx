@@ -1,7 +1,7 @@
 import React from 'react';
 import Square from '../Square/Square';
 
-const Board = ({ squares, onClick, disabled, style }) => {
+const Board = ({ squares, onClick, style }) => {
   return (
     <div style={style}>
       {squares.map((square, index) => (
@@ -9,7 +9,7 @@ const Board = ({ squares, onClick, disabled, style }) => {
           key={index}
           value={square}
           onClick={() => onClick(index)}
-          disabled={disabled}
+          
         />
       ))}
     </div>
