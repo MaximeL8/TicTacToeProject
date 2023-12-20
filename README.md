@@ -1,43 +1,44 @@
-Tic Tac Toe Game
+# Tic Tac Toe Game
 This repository contains a simple Tic Tac Toe game implemented with React for the front end and Flask for the back end. Follow the instructions below to set up and run the project.
 
-Installation
-Front End (React)
+## Installation
+## Front End (React)
+
 Navigate to the frontend directory:
 
-cd frontend
+`cd frontend`
 
-Install dependencies:
+### Install dependencies:
 
-npm install
+`npm install`
 
-Back End (Flask)
-Create and activate a virtual environment:
+## Back End (Flask)
+### Create and activate a virtual environment:
 
-python -m venv venv
-source venv/bin/activate   # On Windows, use `venv\Scripts\activate`
+`python -m venv venv`
+`source venv/bin/activate`   # On Windows, use `venv\Scripts\activate`
 
-Navigate to the backend directory:
+### Navigate to the backend directory:
 
-cd backend
+`cd backend`
 
-Install dependencies:
+### Install dependencies:
 
-pip install
+`pip install`
 
-Running the Application
-Front End (React)
+## Running the Application
+### Front End (React)
 From the frontend directory, start the React app:
 
-npm run dev
+`npm run dev`
 The app will be accessible at http://localhost:5173 in your web browser.
 
-Back End (Flask)
+### Back End (Flask)
 Ensure your virtual environment is activated.
 
 From the backend directory, run the Flask server:
 
-python app.py
+`python server.py`
 The Flask server will start at http://localhost:5000.
 
 Usage
